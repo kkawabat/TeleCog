@@ -32,10 +32,8 @@ def assessment1(request):
         resp.say("Great! Please note that the call will be recorded in order to assess your responses. "
                  "We will begin this assessment with an object naming test, "
                  "after the beep please name as many object as you can think of that starts with the letter, B.")
-        resp.record(action='assessment2', method='POST', timeout=60,
-                    maxLength=60,
-                    transcribe=True, transcribeCallback='analyze_object_naming',
-                    playBeep=True)
+        resp.record(action='assessment2', method='POST', timeout=30, maxLength=30,
+                    transcribe=True, transcribeCallback='analyze_object_naming', playBeep=True)
         resp.say("Great you have finished the assessment!")
     else:
         resp.say("To learn more information about our screening please visit us at our website linus dot health, thank you.")
@@ -60,6 +58,7 @@ def assessment2(request):
 
     ass = Assessment.objects.get(call_sid=request.POST['CallSid'])
     if ass.object_naming_result is None:
+
         resp.say("Please wait a moment while we process your responses, this might take a moment")
         resp.pause(length=5)
         resp.redirect('assessment2')
