@@ -33,7 +33,7 @@ def assessment1(request):
                  "We will begin this assessment with an object naming test, "
                  "after the beep please name as many object as you can think of that starts with the letter, B.")
         resp.record(action='assessment2', method='POST', timeout=60,
-                    maxLength=20,
+                    maxLength=60,
                     transcribe=True, transcribeCallback='analyze_object_naming',
                     playBeep=True)
         resp.say("Great you have finished the assessment!")
@@ -49,6 +49,7 @@ def analyze_object_naming(request):
     text = request.POST['TranscriptionText']
     print(text)
     ass.object_naming_result = len([t for t in text.split() if t.lower().startswith('b')])
+    ass.object_naming_transcript = text
     ass.save()
     return HttpResponse(status=200)
 

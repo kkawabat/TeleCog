@@ -5,3 +5,4 @@ from django.db import models
 class Assessment(models.Model):
     call_sid = models.CharField(max_length=34)
     object_naming_result = models.IntegerField(blank=True, null=True)
+    object_naming_transcript = models.TextField()
