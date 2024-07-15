@@ -60,7 +60,7 @@ def assessment2(request):
     if ass.object_naming_result is None:
 
         resp.say("Please wait a moment while we process your responses, this might take a moment")
-        resp.pause(length=5)
+        resp.pause(length=20)
         resp.redirect('assessment2')
     else:
 
